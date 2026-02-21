@@ -8,5 +8,6 @@
     <color name="text_secondary">#757575</color>
     <color name="warning">#FF9800</color>
     <color name="warning_background">#FFF3E0</color>
+    <color name="warning_red">#D32F2F</color>
     <color name="success">#4CAF50</color>
 </resources>

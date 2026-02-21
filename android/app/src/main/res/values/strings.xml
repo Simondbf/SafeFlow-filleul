@@ -10,4 +10,5 @@
     <string name="open_settings">Open Accessibility Settings</string>
     <string name="service_enabled">SafeFlow Protection Enabled</string>
     <string name="service_disabled">SafeFlow Protection Disabled</string>
+    <string name="browser_info_title">Browser Information</string>
 </resources>
