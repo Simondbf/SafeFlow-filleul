@@ -1,152 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp"
     android:gravity="center"
-    android:background="@color/background">
+    android:padding="32dp"
+    android:background="#F5F5F5">
 
     <!-- App Title -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="32sp"
+        android:text="SafeFlow"
+        android:textSize="36sp"
         android:textStyle="bold"
-        android:textColor="@color/primary"
-        android:layout_marginBottom="16dp" />
-
-    <!-- Subtitle -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/subtitle"
-        android:textSize="16sp"
-        android:textColor="@color/text_secondary"
+        android:textColor="#2196F3"
         android:layout_marginBottom="48dp" />
 
-    <!-- Info Card -->
-    <androidx.cardview.widget.CardView
+    <!-- Enable Protection Button -->
+    <Button
+        android:id="@+id/enableProtectionButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:elevation="4dp"
-        app:cardCornerRadius="16dp">
+        android:text="ACTIVER LA PROTECTION"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="#2196F3"
+        android:paddingVertical="16dp"
+        android:layout_marginBottom="24dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:gravity="center">
+    <!-- Version Text -->
+    <TextView
+        android:id="@+id/versionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="v1.0"
+        android:textSize="14sp"
+        android:textColor="#757575" />
 
-            <!-- Instruction Text -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/accessibility_instruction"
-                android:textSize="16sp"
-                android:textColor="@color/text_primary"
-                android:gravity="center"
-                android:layout_marginBottom="24dp" />
-
-            <!-- Enable Protection Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/openSettingsButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enable Protection"
-                android:textSize="16sp"
-                android:paddingHorizontal="32dp"
-                android:paddingVertical="12dp" />
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <!-- Browser Information Card -->
-    <androidx.cardview.widget.CardView
+    <!-- Info Text -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:elevation="4dp"
-        app:cardCornerRadius="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
-
-            <!-- Section Title -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/browser_info_title"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="16dp" />
-
-            <!-- Chrome Entry -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Chrome"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⚠️ Warning: Contains intrusive ads and adult content."
-                    android:textSize="14sp"
-                    android:textColor="@color/warning_red"
-                    android:layout_marginStart="4dp" />
-
-            </LinearLayout>
-
-            <!-- Bing Entry (Blocked) -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:layout_marginTop="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bing Search"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🚫 Blocked by SafeFlow"
-                    android:textSize="14sp"
-                    android:textColor="@color/success"
-                    android:layout_marginStart="4dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        android:text="Appuyez sur le bouton pour activer la protection"
+        android:textSize="14sp"
+        android:textColor="#757575"
+        android:gravity="center"
+        android:layout_marginTop="32dp" />
 
 </LinearLayout>
