@@ -181,6 +181,17 @@ class IntroActivity : AppCompatActivity() {
             }
         }
     }
+    
+    private fun openAccessibilitySettings() {
+        try {
+            val intent = Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "Erreur lors de l'ouverture des paramètres", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun openDiscord() {
         try {
