@@ -57,10 +57,12 @@ class IntroActivity : AppCompatActivity() {
         titleText = findViewById(R.id.introTitle)
         descriptionText = findViewById(R.id.introDescription)
         nextButton = findViewById(R.id.nextButton)
+        previousButton = findViewById(R.id.previousButton)
         startButton = findViewById(R.id.startButton)
         stepIndicator = findViewById(R.id.stepIndicator)
         discordButton = findViewById(R.id.discordButton)
         activateProtectionButton = findViewById(R.id.activateProtectionButton)
+        openAccessibilityButton = findViewById(R.id.openAccessibilityButton)
 
         // Set up buttons
         nextButton.setOnClickListener {
