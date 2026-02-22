@@ -13,7 +13,7 @@ class UpdateChecker(private val context: Context) {
 
     companion object {
         private const val TAG = "UpdateChecker"
-        private const val CURRENT_VERSION = "1.0"
+        private const val CURRENT_VERSION = "1.1"
         private const val UPDATE_URL = "https://raw.githubusercontent.com/Simondbf/SafeFlow/main/version.json"
     }
 
