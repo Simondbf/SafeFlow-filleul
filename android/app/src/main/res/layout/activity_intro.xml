@@ -49,6 +49,19 @@
         android:lineSpacingExtra="4dp"
         android:layout_marginBottom="48dp" />
 
+    <!-- Previous Button -->
+    <Button
+        android:id="@+id/previousButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PRÉCÉDENT"
+        android:textSize="14sp"
+        android:textColor="#757575"
+        android:background="#E0E0E0"
+        android:paddingVertical="14dp"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp" />
+
     <!-- Next Button -->
     <Button
         android:id="@+id/nextButton"
