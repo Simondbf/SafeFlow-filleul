@@ -25,6 +25,19 @@
             android:textStyle="bold"
             android:textColor="#2196F3" />
 
+        <!-- Settings Icon -->
+        <TextView
+            android:id="@+id/settingsIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚙️"
+            android:textSize="32sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:layout_marginEnd="8dp" />
+
         <!-- Unlock/Lock Icon -->
         <TextView
             android:id="@+id/unlockIcon"
