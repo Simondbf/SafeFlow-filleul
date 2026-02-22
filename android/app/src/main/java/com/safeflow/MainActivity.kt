@@ -73,6 +73,10 @@ class MainActivity : AppCompatActivity() {
                 showUnlockDialog()
             }
             
+            settingsIcon.setOnClickListener {
+                showUnlockDialog()
+            }
+            
             // Check for updates
             checkForUpdates()
             
