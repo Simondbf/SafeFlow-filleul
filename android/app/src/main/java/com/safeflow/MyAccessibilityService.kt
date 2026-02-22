@@ -21,40 +21,74 @@ class MyAccessibilityService : AccessibilityService() {
 
     override fun onServiceConnected() {
         super.onServiceConnected()
-        Log.d(TAG, "SafeFlow Accessibility Service Connected")
-        Log.d(TAG, "Blocking packages: $BLOCKED_PACKAGES")
+        try {
+            Log.d(TAG, "SafeFlow Accessibility Service Connected")
+            Log.d(TAG, "Blocking packages: $BLOCKED_PACKAGES")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error in onServiceConnected: ${e.message}")
+        }
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        if (event == null) return
-
-        // Only process window state changed events
-        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            val packageName = event.packageName?.toString()
-            
-            if (packageName != null && isBlockedPackage(packageName)) {
-                Log.d(TAG, "Blocked app detected: $packageName - Closing...")
-                
-                // Perform back action to close the app
-                performGlobalAction(GLOBAL_ACTION_BACK)
-                
-                Log.d(TAG, "Back action performed on: $packageName")
+        try {
+            // Null check for event
+            if (event == null) {
+                return
             }
+
+            // Only process window state changed events
+            if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+                // Null-safe package name extraction
+                val packageName = event.packageName?.toString()
+                
+                // Check if package name is null or empty
+                if (packageName.isNullOrEmpty()) {
+                    return
+                }
+                
+                // Check if this package should be blocked
+                if (isBlockedPackage(packageName)) {
+                    Log.d(TAG, "Blocked app detected: $packageName - Closing...")
+                    
+                    try {
+                        // Perform back action to close the app
+                        performGlobalAction(GLOBAL_ACTION_BACK)
+                        Log.d(TAG, "Back action performed on: $packageName")
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error performing back action: ${e.message}")
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error in onAccessibilityEvent: ${e.message}")
         }
     }
 
     private fun isBlockedPackage(packageName: String): Boolean {
-        return BLOCKED_PACKAGES.any { blockedPackage ->
-            packageName.equals(blockedPackage, ignoreCase = true)
+        return try {
+            BLOCKED_PACKAGES.any { blockedPackage ->
+                packageName.equals(blockedPackage, ignoreCase = true)
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error checking blocked package: ${e.message}")
+            false
         }
     }
 
     override fun onInterrupt() {
-        Log.d(TAG, "SafeFlow Accessibility Service Interrupted")
+        try {
+            Log.d(TAG, "SafeFlow Accessibility Service Interrupted")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error in onInterrupt: ${e.message}")
+        }
     }
 
     override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "SafeFlow Accessibility Service Destroyed")
+        try {
+            super.onDestroy()
+            Log.d(TAG, "SafeFlow Accessibility Service Destroyed")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error in onDestroy: ${e.message}")
+        }
     }
 }
