@@ -76,6 +76,20 @@
         android:visibility="gone"
         android:layout_marginBottom="16dp" />
 
+    <!-- Activate Protection Button -->
+    <Button
+        android:id="@+id/activateProtectionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🔒 ACTIVER PROTECTION"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="#FF5722"
+        android:paddingVertical="16dp"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp" />
+
     <!-- Discord Button -->
     <Button
         android:id="@+id/discordButton"
