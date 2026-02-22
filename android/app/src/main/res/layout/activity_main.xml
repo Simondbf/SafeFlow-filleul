@@ -7,15 +7,37 @@
     android:padding="32dp"
     android:background="#F5F5F5">
 
-    <!-- App Title -->
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Top Bar with Title and Unlock Icon -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SafeFlow"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="#2196F3"
-        android:layout_marginBottom="48dp" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="48dp">
+
+        <!-- App Title -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SafeFlow"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#2196F3" />
+
+        <!-- Unlock/Lock Icon -->
+        <TextView
+            android:id="@+id/unlockIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔒"
+            android:textSize="32sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp" />
+
+    </LinearLayout>
 
     <!-- Status Section -->
     <LinearLayout
