@@ -1,5 +1,7 @@
 package com.safeflow
 
+import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class IntroActivity : AppCompatActivity() {
@@ -20,6 +23,14 @@ class IntroActivity : AppCompatActivity() {
     private lateinit var startButton: Button
     private lateinit var stepIndicator: TextView
     private lateinit var discordButton: Button
+    private lateinit var activateProtectionButton: Button
+
+    private lateinit var devicePolicyManager: DevicePolicyManager
+    private lateinit var adminComponent: ComponentName
+
+    companion object {
+        private const val REQUEST_CODE_ENABLE_ADMIN = 1001
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +47,10 @@ class IntroActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_intro)
 
+        // Initialize device admin
+        devicePolicyManager = getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        adminComponent = ComponentName(this, AdminReceiver::class.java)
+
         // Initialize views
         titleText = findViewById(R.id.introTitle)
         descriptionText = findViewById(R.id.introDescription)
@@ -43,6 +58,7 @@ class IntroActivity : AppCompatActivity() {
         startButton = findViewById(R.id.startButton)
         stepIndicator = findViewById(R.id.stepIndicator)
         discordButton = findViewById(R.id.discordButton)
+        activateProtectionButton = findViewById(R.id.activateProtectionButton)
 
         // Set up buttons
         nextButton.setOnClickListener {
@@ -62,6 +78,10 @@ class IntroActivity : AppCompatActivity() {
             openDiscord()
         }
 
+        activateProtectionButton.setOnClickListener {
+            activateDeviceAdmin()
+        }
+
         // Show first step
         updateContent()
     }
@@ -75,6 +95,7 @@ class IntroActivity : AppCompatActivity() {
                 nextButton.visibility = View.VISIBLE
                 startButton.visibility = View.GONE
                 discordButton.visibility = View.GONE
+                activateProtectionButton.visibility = View.GONE
                 stepIndicator.text = "1 / 3"
             }
             1 -> {
@@ -84,16 +105,48 @@ class IntroActivity : AppCompatActivity() {
                 nextButton.visibility = View.VISIBLE
                 startButton.visibility = View.GONE
                 discordButton.visibility = View.GONE
+                activateProtectionButton.visibility = View.GONE
                 stepIndicator.text = "2 / 3"
             }
             2 -> {
-                // Step 3: Community
-                titleText.text = "Rejoignez la Communauté"
-                descriptionText.text = "Partagez vos retours, demandez de l'aide, et restez informé des dernières mises à jour.\n\nRejoignez notre Discord !"
+                // Step 3: Security & Community
+                titleText.text = "Protection Maximale"
+                descriptionText.text = "Activez la protection anti-désinstallation pour sécuriser l'application.\n\nRejoignez aussi notre communauté Discord !"
                 nextButton.visibility = View.GONE
                 startButton.visibility = View.VISIBLE
                 discordButton.visibility = View.VISIBLE
+                activateProtectionButton.visibility = View.VISIBLE
                 stepIndicator.text = "3 / 3"
+            }
+        }
+    }
+
+    private fun activateDeviceAdmin() {
+        try {
+            if (!devicePolicyManager.isAdminActive(adminComponent)) {
+                val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
+                intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, adminComponent)
+                intent.putExtra(
+                    DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+                    "SafeFlow a besoin de cette permission pour empêcher la désinstallation non autorisée."
+                )
+                startActivityForResult(intent, REQUEST_CODE_ENABLE_ADMIN)
+            } else {
+                Toast.makeText(this, "Protection déjà activée", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "Erreur lors de l'activation", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_ENABLE_ADMIN) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Protection Anti-Désinstallation Activée ✓", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Protection non activée (optionnel)", Toast.LENGTH_SHORT).show()
             }
         }
     }
