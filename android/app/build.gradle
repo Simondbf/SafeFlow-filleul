@@ -1,67 +1,81 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp") version "1.9.25-1.0.24"  // Plugin pour futures extensions
 }
 
 android {
-    namespace 'com.safeflow'
-    compileSdk 35
+    namespace = "com.simondbf.safeflow_filleul"
+    compileSdk = 34  // Android 14 max stable
 
     defaultConfig {
-        applicationId "com.safeflow"
-        minSdk 33
-        targetSdk 35
-        versionCode 3
-        versionName "1.1"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        applicationId = "com.simondbf.safeflow_filleul"
+        minSdk = 26  // Android 8+ (large compat)
+        targetSdk = 34  // Android 14 obligatoire
+        versionCode = 12
+        versionName = "1.2-stable"
+        // Tests auto
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true  // Icons vectoriels
         }
     }
 
+    // Optimisations build
+    buildTypes {
+        release {
+            isMinifyEnabled = false  // Pas de minif pour debug facile
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    // Java/Kotlin compat
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = "1.8"
     }
-
+    // Compose activé
     buildFeatures {
-        compose true
+        compose = true
     }
-
     composeOptions {
-        kotlinCompilerExtensionVersion '1.5.3'
+        kotlinCompilerExtensionVersion = "1.5.14"  // Dernière stable
+    }
+    // Packaging clean
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
+    // Core Android
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
+    implementation("androidx.activity:activity-compose:1.9.1")
     
-    // Jetpack Compose - Compatible avec Kotlin 1.9.10
-    implementation platform('androidx.compose:compose-bom:2024.02.00')
-    implementation 'androidx.compose.ui:ui'
-    implementation 'androidx.compose.ui:ui-graphics'
-    implementation 'androidx.compose.ui:ui-tooling-preview'
-    implementation 'androidx.compose.material3:material3'
-    implementation 'androidx.activity:activity-compose:1.8.2'
-    implementation 'androidx.compose.material:material-icons-extended'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0'
+    // Compose BOM (toutes versions sync)
+    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
     
-    // Accompanist - Permissions (requis pour IntroActivity)
-    implementation 'com.google.accompanist:accompanist-permissions:0.35.0-alpha'
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.8.0-beta06")
     
-    debugImplementation 'androidx.compose.ui:ui-tooling'
-    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    // Tests
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.06.00"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
